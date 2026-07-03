@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arnaud KONAN — Data Analyst</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --black:  #0B0B0B;
+      --card:   #141414;
+      --border: #242424;
+      --green:  #22C55E;
+      --green-d:#16A34A;
+      --white:  #F5F5F5;
+      --gray:   #6B7280;
+      --gray2:  #9CA3AF;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── STARS BG ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image:
+        radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.25) 0%, transparent 100%),
+        radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.15) 0%, transparent 100%),
+        radial-gradient(1px 1px at 55% 25%, rgba(255,255,255,0.2)  0%, transparent 100%),
+        radial-gradient(1px 1px at 70% 80%, rgba(255,255,255,0.15) 0%, transparent 100%),
+        radial-gradient(1px 1px at 85% 40%, rgba(255,255,255,0.2)  0%, transparent 100%),
+        radial-gradient(1px 1px at 20% 90%, rgba(255,255,255,0.1)  0%, transparent 100%),
+        radial-gradient(1px 1px at 92% 10%, rgba(255,255,255,0.18) 0%, transparent 100%),
+        radial-gradient(1px 1px at 45% 70%, rgba(255,255,255,0.12) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 60px;
+      background: rgba(11,11,11,0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; font-size: 20px; color: var(--white);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .nav-logo-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--green);
+    }
+    .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-size: 14px; color: var(--gray2); text-decoration: none;
+      font-weight: 500; transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--green); }
+    .nav-cta {
+      background: var(--green); color: #000;
+      padding: 9px 22px; border-radius: 6px;
+      font-size: 14px; font-weight: 700;
+      text-decoration: none; transition: background 0.2s, transform 0.15s;
+    }
+    .nav-cta:hover { background: var(--green-d); transform: translateY(-1px); }
+
+    /* ── SECTIONS ── */
+    .section { position: relative; z-index: 1; padding: 90px 60px; max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(36px, 5vw, 52px); font-weight: 700;
+      color: var(--white); margin-bottom: 48px;
+      letter-spacing: -1px; line-height: 1.1;
+    }
+    .section-label span { color: var(--green); }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 120px 60px 60px;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .hero-inner { width: 100%; }
+    .hero-greeting {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(52px, 9vw, 108px);
+      font-weight: 700; line-height: 1.0;
+      letter-spacing: -3px; margin-bottom: 18px;
+      color: var(--white);
+    }
+    .hero-greeting em {
+      font-style: normal; color: var(--green);
+    }
+    .hero-sub {
+      font-size: clamp(18px, 2.5vw, 24px);
+      color: var(--gray2); margin-bottom: 36px;
+      font-weight: 400;
+    }
+    .hero-socials { display: flex; gap: 12px; margin-bottom: 48px; flex-wrap: wrap; }
+    .social-btn {
+      display: flex; align-items: center; justify-content: center;
+      width: 42px; height: 42px; border-radius: 50%;
+      border: 1px solid var(--border);
+      color: var(--gray2); text-decoration: none; font-size: 17px;
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    }
+    .social-btn:hover { border-color: var(--green); color: var(--green); transform: scale(1.1); }
+    .hero-scroll {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 13px; color: var(--gray); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .hero-scroll:hover { color: var(--green); }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid; grid-template-columns: 220px 1fr;
+      gap: 48px; align-items: start;
+    }
+    .about-photo-wrap { position: relative; }
+    .about-photo {
+      width: 220px; height: 260px; border-radius: 12px;
+      object-fit: cover; display: block;
+      border: 2px solid var(--border);
+    }
+    .about-photo-placeholder {
+      width: 220px; height: 260px; border-radius: 12px;
+      background: var(--card); border: 2px dashed var(--border);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 10px; color: var(--gray);
+    }
+    .about-photo-placeholder span { font-size: 40px; }
+    .about-photo-placeholder p { font-size: 12px; text-align: center; padding: 0 14px; line-height: 1.5; }
+    .about-text p {
+      font-size: 16px; color: var(--gray2); line-height: 1.85;
+      margin-bottom: 18px;
+    }
+    .about-text p strong { color: var(--white); font-weight: 600; }
+    .about-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .about-tag {
+      font-size: 13px; color: var(--green);
+      border: 1px solid rgba(34,197,94,0.3);
+      border-radius: 100px; padding: 5px 14px;
+      font-weight: 500;
+    }
+
+    /* ── FORMATION ── */
+    .edu-grid {
+      display: grid; grid-template-columns: 240px 1fr;
+      gap: 0 64px;
+    }
+    .edu-col { display: flex; flex-direction: column; gap: 32px; }
+    .edu-item {}
+    .edu-degree {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 17px; font-weight: 700;
+      color: var(--white); margin-bottom: 6px;
+      border-bottom: 2px solid var(--green);
+      display: inline-block; padding-bottom: 2px;
+    }
+    .edu-school { font-size: 14px; color: var(--gray2); }
+    .edu-period { font-size: 13px; color: var(--gray); margin-top: 4px; }
+
+    /* ── SKILLS ── */
+    .skills-grid { display: flex; flex-direction: column; gap: 28px; }
+    .skill-row { display: grid; grid-template-columns: 180px 1fr; gap: 24px; align-items: start; }
+    .skill-cat-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px; font-weight: 700; color: var(--white);
+      padding-top: 5px;
+    }
+    .skill-pills { display: flex; flex-wrap: wrap; gap: 10px; }
+    .pill {
+      font-size: 13px; font-weight: 500;
+      padding: 6px 16px; border-radius: 6px;
+      border: 1px solid var(--border);
+      color: var(--gray2); background: var(--card);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .pill:hover { border-color: var(--green); color: var(--green); }
+    .pill.hot {
+      border-color: rgba(34,197,94,0.4);
+      color: var(--green); background: rgba(34,197,94,0.06);
+    }
+
+    /* ── PROJETS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px; padding: 28px;
+      display: flex; flex-direction: column; gap: 14px;
+      transition: border-color 0.25s, transform 0.2s;
+      text-decoration: none;
+    }
+    .project-card:hover { border-color: var(--green); transform: translateY(-3px); }
+    .project-top { display: flex; justify-content: space-between; align-items: flex-start; }
+    .project-emoji { font-size: 30px; }
+    .project-arrow { font-size: 20px; color: var(--gray); transition: color 0.2s; }
+    .project-card:hover .project-arrow { color: var(--green); }
+    .project-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px; font-weight: 700; color: var(--white);
+    }
+    .project-desc { font-size: 14px; color: var(--gray2); line-height: 1.7; }
+    .project-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+    .project-pill {
+      font-size: 11px; font-weight: 600; padding: 3px 10px;
+      border-radius: 4px; background: rgba(34,197,94,0.08);
+      color: var(--green); border: 1px solid rgba(34,197,94,0.2);
+    }
+
+    /* Add card */
+    .project-add {
+      background: transparent;
+      border: 2px dashed var(--border); border-radius: 12px;
+      padding: 28px; display: flex;
+      flex-direction: column; align-items: center; justify-content: center;
+      gap: 10px; min-height: 180px; cursor: default;
+      transition: border-color 0.2s;
+    }
+    .project-add:hover { border-color: rgba(34,197,94,0.4); }
+    .project-add-icon { font-size: 28px; color: var(--gray); }
+    .project-add p { font-size: 13px; color: var(--gray); text-align: center; line-height: 1.6; }
+    .project-add strong { color: var(--gray2); }
+
+    /* ── CONTACT ── */
+    #contact-section {
+      position: relative; z-index: 1;
+      padding: 80px 60px;
+      border-top: 1px solid var(--border);
+    }
+    .contact-inner { max-width: 1100px; margin: 0 auto; }
+    .contact-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(32px, 5vw, 54px); font-weight: 700;
+      line-height: 1.1; letter-spacing: -1.5px;
+      margin-bottom: 16px;
+    }
+    .contact-title em { font-style: normal; color: var(--green); }
+    .contact-sub { font-size: 16px; color: var(--gray2); margin-bottom: 36px; }
+    .contact-links { display: flex; gap: 16px; flex-wrap: wrap; }
+    .contact-link {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 14px 22px;
+      font-size: 14px; font-weight: 500; color: var(--white);
+      text-decoration: none; transition: border-color 0.2s, transform 0.15s;
+    }
+    .contact-link:hover { border-color: var(--green); transform: translateY(-2px); }
+    .contact-link .icon { font-size: 18px; }
+    .footer-copy {
+      margin-top: 60px; font-size: 13px; color: var(--gray);
+      text-align: center;
+    }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s, transform 0.55s; }
+    .reveal.show { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .nav-links, .nav-cta { display: none; }
+      #hero, .section { padding: 100px 20px 60px; }
+      .hero-greeting { letter-spacing: -2px; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-photo, .about-photo-placeholder { width: 100%; height: 220px; }
+      .edu-grid { grid-template-columns: 1fr; }
+      .skill-row { grid-template-columns: 1fr; gap: 10px; }
+      #contact-section { padding: 60px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-dot"></div>
+    Arnaud K.
+  </div>
+  <ul class="nav-links">
+    <li><a href="#hero" class="active">Accueil</a></li>
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#formation">Formation</a></li>
+    <li><a href="#skills">Compétences</a></li>
+    <li><a href="#projects">Projets</a></li>
+  </ul>
+  <a href="#contact-section" class="nav-cta">Me contacter</a>
+</nav>
+
+<!-- ══ HERO ══ -->
+<div id="hero">
+  <div class="hero-inner">
+    <h1 class="hero-greeting">
+      Salut, je suis<br />
+      <em>Arnaud !</em>
+    </h1>
+    <p class="hero-sub">Data Analyst &amp; futur Analytics Engineer 📊</p>
+
+    <div class="hero-socials">
+      <!-- LinkedIn : remplace # par ton vrai lien -->
+      <a href="#" target="_blank" class="social-btn" title="LinkedIn">in</a>
+      <a href="https://github.com/arnaud-svg" target="_blank" class="social-btn" title="GitHub">⌥</a>
+      <a href="mailto:totossikonan@gmail.com" class="social-btn" title="Email">@</a>
+    </div>
+
+    <a href="#about" class="hero-scroll">Découvrir ↓</a>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- ══ ABOUT ══ -->
+<div class="section reveal" id="about">
+  <div class="section-label">À <span>propos</span></div>
+  <div class="about-grid">
+
+    <div class="about-photo-wrap">
+      <!--
+      ╔══════════════════════════════════════════════╗
+      ║  AJOUTER TA PHOTO                            ║
+      ║  1. Renomme ton fichier → photo.jpg          ║
+      ║  2. Mets-le dans le même dossier             ║
+      ║  3. Remplace le bloc div.about-photo-        ║
+      ║     placeholder par :                        ║
+      ║  <img src="photo.jpg"                        ║
+      ║       alt="Arnaud KONAN"                     ║
+      ║       class="about-photo" />                 ║
+      ╚══════════════════════════════════════════════╝
+      -->
+      <div class="about-photo-placeholder">
+        <span>📸</span>
+        <p>Ta photo ici<br />(voir instructions dans le code)</p>
+      </div>
+    </div>
+
+    <div class="about-text">
+      <p>
+        Je suis <strong>Arnaud KONAN</strong>, étudiant en Master 2 Data Analytics &amp; Marketing Management
+        à l'INSEEC MSc Paris. Pas le gars qui fait juste des tableaux Excel — j'aime vraiment
+        comprendre pourquoi les chiffres disent ce qu'ils disent.
+      </p>
+      <p>
+        J'ai passé un an en alternance chez <strong>Carel Paris</strong> comme Data Analyst : je construisais
+        des dashboards Power BI, je fiabilisais des données ERP/CRM et j'aidais les équipes métiers
+        à prendre de meilleures décisions. En clair, je transforme des données en trucs utiles pour
+        les vraies personnes.
+      </p>
+      <p>
+        En ce moment je monte en compétence sur <strong>Git, dbt et Snowflake</strong> pour évoluer vers
+        l'Analytics Engineering. Je cherche un <strong>CDI Data Analyst</strong> où je peux avoir un
+        vrai impact, pas juste faire de la mise en forme de rapports.
+      </p>
+      <div class="about-tags">
+        <span class="about-tag">Basé à Noisy-le-Grand 📍</span>
+        <span class="about-tag">Disponible dès maintenant</span>
+        <span class="about-tag">Français / Anglais</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- ══ FORMATION ══ -->
+<div class="section reveal" id="formation">
+  <div class="section-label">Forma<span>tion</span></div>
+  <div class="edu-grid">
+
+    <div class="edu-col">
+      <div class="edu-item">
+        <div class="edu-degree">MSc Data Analytics</div>
+        <div class="edu-school">INSEEC MSc Paris</div>
+        <div class="edu-period">2024 – 2026</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-degree">Bachelor Marketing Digital</div>
+        <div class="edu-school">ITIC Paris</div>
+        <div class="edu-period">2023 – 2024</div>
+      </div>
+    </div>
+
+    <div class="edu-col">
+      <div class="edu-item">
+        <div class="edu-degree">Licence Management &amp; Marketing</div>
+        <div class="edu-school">IUA Abidjan</div>
+        <div class="edu-period">2020 – 2023</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-degree">Alternance Data Analyst</div>
+        <div class="edu-school">Carel Paris</div>
+        <div class="edu-period">Nov. 2024 – Jan. 2026</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- ══ COMPÉTENCES ══ -->
+<div class="section reveal" id="skills">
+  <div class="section-label">Compé<span>tences</span></div>
+  <div class="skills-grid">
+
+    <div class="skill-row">
+      <div class="skill-cat-name">Data &amp; BI</div>
+      <div class="skill-pills">
+        <span class="pill hot">Power BI</span>
+        <span class="pill hot">DAX</span>
+        <span class="pill hot">Power Query</span>
+        <span class="pill">Looker Studio</span>
+        <span class="pill">Tableau</span>
+        <span class="pill">Excel avancé</span>
+      </div>
+    </div>
+
+    <div class="skill-row">
+      <div class="skill-cat-name">Langages</div>
+      <div class="skill-pills">
+        <span class="pill hot">SQL</span>
+        <span class="pill hot">Python</span>
+        <span class="pill">Pandas</span>
+        <span class="pill">NumPy</span>
+        <span class="pill">M (Power Query)</span>
+      </div>
+    </div>
+
+    <div class="skill-row">
+      <div class="skill-cat-name">Data Eng.</div>
+      <div class="skill-pills">
+        <span class="pill hot">Git &amp; GitHub</span>
+        <span class="pill">dbt</span>
+        <span class="pill">Snowflake</span>
+        <span class="pill">Microsoft Fabric</span>
+        <span class="pill">Azure</span>
+      </div>
+    </div>
+
+    <div class="skill-row">
+      <div class="skill-cat-name">CRM / ERP</div>
+      <div class="skill-pills">
+        <span class="pill">Salesforce</span>
+        <span class="pill">Microsoft Dynamics</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- ══ PROJETS ══ -->
+<div class="section reveal" id="projects">
+  <div class="section-label">Mes <span>projets</span></div>
+  <div class="projects-grid">
+
+    <!--
+    ╔══════════════════════════════════════════════════════╗
+    ║  AJOUTER UN PROJET — Copie ce bloc et modifie :     ║
+    ║  • project-emoji : ton emoji                        ║
+    ║  • project-title : nom du projet                    ║
+    ║  • project-desc  : description courte               ║
+    ║  • project-pill  : outils utilisés                  ║
+    ║  • href du <a>   : lien GitHub ou démo              ║
+    ╚══════════════════════════════════════════════════════╝
+    -->
+
+    <a href="#" class="project-card">
+      <div class="project-top">
+        <div class="project-emoji">📊</div>
+        <div class="project-arrow">↗</div>
+      </div>
+      <div class="project-title">Dashboard Commercial Power BI</div>
+      <p class="project-desc">
+        Tableaux de bord interactifs pour piloter les ventes chez Carel Paris.
+        Suivi du CA, des marges et des taux de transformation en temps réel.
+      </p>
+      <div class="project-pills">
+        <span class="project-pill">Power BI</span>
+        <span class="project-pill">DAX</span>
+        <span class="project-pill">Power Query</span>
+        <span class="project-pill">Salesforce</span>
+      </div>
+    </a>
+
+    <a href="https://github.com/arnaud-svg" target="_blank" class="project-card">
+      <div class="project-top">
+        <div class="project-emoji">🔍</div>
+        <div class="project-arrow">↗</div>
+      </div>
+      <div class="project-title">Veille Compétitive Automatisée</div>
+      <p class="project-desc">
+        Scraper d'actualités sectorielles (RSS + Google News) pour SUEZ.
+        Dashboard HTML interactif + export Excel automatique.
+      </p>
+      <div class="project-pills">
+        <span class="project-pill">Python</span>
+        <span class="project-pill">BeautifulSoup</span>
+        <span class="project-pill">Pandas</span>
+        <span class="project-pill">HTML/CSS</span>
+      </div>
+    </a>
+
+    <a href="#" class="project-card">
+      <div class="project-top">
+        <div class="project-emoji">👟</div>
+        <div class="project-arrow">↗</div>
+      </div>
+      <div class="project-title">Analyse E-commerce Chaussures</div>
+      <p class="project-desc">
+        Dashboard Excel complet pour une marque e-commerce. Segmentation clients,
+        analyse des ventes par canal et visualisations dynamiques.
+      </p>
+      <div class="project-pills">
+        <span class="project-pill">Excel</span>
+        <span class="project-pill">TCD</span>
+        <span class="project-pill">Power Query</span>
+      </div>
+    </a>
+
+    <div class="project-add">
+      <div class="project-add-icon">＋</div>
+      <p><strong>Ton prochain projet ici</strong><br />Copie un bloc project-card<br />et personnalise-le</p>
+    </div>
+
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- ══ CONTACT ══ -->
+<div id="contact-section">
+  <div class="contact-inner reveal">
+    <div class="contact-title">
+      On travaille<br /><em>ensemble ?</em>
+    </div>
+    <p class="contact-sub">Ouvert aux CDI, stages et missions data. Je réponds toujours.</p>
+    <div class="contact-links">
+      <a href="mailto:totossikonan@gmail.com" class="contact-link">
+        <span class="icon">✉️</span> totossikonan@gmail.com
+      </a>
+      <a href="#" target="_blank" class="contact-link">
+        <!-- Remplace # par ton lien LinkedIn ex: https://linkedin.com/in/arnaud-konan -->
+        <span class="icon">💼</span> LinkedIn
+      </a>
+      <a href="https://github.com/arnaud-svg" target="_blank" class="contact-link">
+        <span class="icon">🐙</span> GitHub
+      </a>
+    </div>
+    <p class="footer-copy">© 2025 Arnaud KONAN · Fait avec passion et beaucoup de café ☕</p>
+  </div>
+</div>
+
+<script>
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Nav active link
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  });
+</script>
+
+</body>
+</html>
