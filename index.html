@@ -169,9 +169,14 @@
 
     /* ── ABOUT ── */
     .about-grid {
-      display: grid; grid-template-columns: 220px 1fr;
-      gap: 52px; align-items: start;
-    }
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 52px;
+  align-items: start;
+  width: 100%;
+}
+
+.about-grid > * { min-width: 0; }
     .about-photo {
       width: 220px; height: 270px; border-radius: 14px;
       object-fit: cover; display: block;
